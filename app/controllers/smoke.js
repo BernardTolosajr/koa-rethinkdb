@@ -15,12 +15,11 @@ exports.create = function *() {
   try {
     yield r.db(config.rethinkdb.db).table('sample')
                       .insert(object);
+    this.status = 201;
+    this.body = object;
   }
   catch (err) {
     if (err.message.indexOf("already exists") == -1)
       console.log(err.message);
   }
-
-  this.status = 201;
-  this.body = object;
 };
